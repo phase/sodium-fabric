@@ -1,13 +1,17 @@
 package me.jellysquid.mods.sodium.mixin.features.buffer_builder.fast_advance;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.render.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferVertexConsumer;
+import com.mojang.blaze3d.vertex.DefaultedVertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormatElement;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BufferBuilder.class)
-public abstract class MixinBufferBuilder extends FixedColorVertexConsumer implements BufferVertexConsumer {
+public abstract class MixinBufferBuilder extends DefaultedVertexConsumer implements BufferVertexConsumer {
     @Shadow
     private VertexFormat format;
 
@@ -30,7 +34,7 @@ public abstract class MixinBufferBuilder extends FixedColorVertexConsumer implem
         ImmutableList<VertexFormatElement> elements = this.format.getElements();
 
         do {
-            this.elementOffset += this.currentElement.getByteLength();
+            this.elementOffset += this.currentElement.getByteSize();
 
             // Wrap around the element pointer without using modulo
             if (++this.currentElementId >= elements.size()) {
@@ -38,10 +42,10 @@ public abstract class MixinBufferBuilder extends FixedColorVertexConsumer implem
             }
 
             this.currentElement = elements.get(this.currentElementId);
-        } while (this.currentElement.getType() == VertexFormatElement.Type.PADDING);
+        } while (this.currentElement.getUsage() == VertexFormatElement.Usage.PADDING);
 
-        if (this.colorFixed && this.currentElement.getType() == VertexFormatElement.Type.COLOR) {
-            BufferVertexConsumer.super.color(this.fixedRed, this.fixedGreen, this.fixedBlue, this.fixedAlpha);
+        if (this.defaultColorSet && this.currentElement.getUsage() == VertexFormatElement.Usage.COLOR) {
+            BufferVertexConsumer.super.color(this.defaultR, this.defaultG, this.defaultB, this.defaultA);
         }
     }
 }

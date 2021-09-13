@@ -9,7 +9,6 @@ import me.jellysquid.mods.sodium.client.gl.functions.BufferStorageFunctions;
 import me.jellysquid.mods.sodium.client.gl.sync.GlFence;
 import me.jellysquid.mods.sodium.client.gl.util.EnumBitField;
 import me.jellysquid.mods.sodium.client.util.MathUtil;
-
 import java.nio.ByteBuffer;
 
 public class MappedStagingBuffer implements StagingBuffer {

@@ -52,7 +52,7 @@ public class SodiumClientMod implements ClientModInitializer {
             LOGGER.error("Failed to load configuration file", e);
             LOGGER.error("Using default configuration file in read-only mode");
 
-            var config = new SodiumGameOptions();
+            SodiumGameOptions config = new SodiumGameOptions();
             config.setReadOnly();
 
             return config;

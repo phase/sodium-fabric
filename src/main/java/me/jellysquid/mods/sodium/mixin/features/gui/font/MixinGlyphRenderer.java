@@ -1,18 +1,18 @@
 package me.jellysquid.mods.sodium.mixin.features.gui.font;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import me.jellysquid.mods.sodium.client.model.vertex.VanillaVertexTypes;
 import me.jellysquid.mods.sodium.client.model.vertex.VertexDrain;
 import me.jellysquid.mods.sodium.client.model.vertex.formats.glyph.GlyphVertexSink;
 import me.jellysquid.mods.sodium.client.util.color.ColorABGR;
-import net.minecraft.client.font.GlyphRenderer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(GlyphRenderer.class)
+@Mixin(BakedGlyph.class)
 public class MixinGlyphRenderer {
     @Shadow
     @Final

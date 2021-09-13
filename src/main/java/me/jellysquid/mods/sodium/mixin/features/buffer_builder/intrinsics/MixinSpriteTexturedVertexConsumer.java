@@ -1,22 +1,22 @@
 package me.jellysquid.mods.sodium.mixin.features.buffer_builder.intrinsics;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.jellysquid.mods.sodium.client.model.vertex.VanillaVertexTypes;
 import me.jellysquid.mods.sodium.client.model.vertex.VertexDrain;
 import me.jellysquid.mods.sodium.client.model.vertex.VertexSink;
 import me.jellysquid.mods.sodium.client.model.vertex.transformers.SpriteTexturedVertexTransformer;
 import me.jellysquid.mods.sodium.client.model.vertex.type.VertexType;
-import net.minecraft.client.render.SpriteTexturedVertexConsumer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.renderer.SpriteCoordinateExpander;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(SpriteTexturedVertexConsumer.class)
+@Mixin(SpriteCoordinateExpander.class)
 public abstract class MixinSpriteTexturedVertexConsumer implements VertexDrain {
     @Shadow
     @Final
-    private Sprite sprite;
+    private TextureAtlasSprite sprite;
 
     @Shadow
     @Final
